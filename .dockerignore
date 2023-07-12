@@ -1,0 +1,10 @@
+*.md
+.git
+.gitignore
+readme.md
+LICENSE
+.vscode
+.idea
+.flake8
+.gitattributes
+.editorconfig

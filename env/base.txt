@@ -1,0 +1,12 @@
+python-dotenv
+flask-sqlalchemy
+flask-login
+psycopg2-binary
+flask-marshmallow
+flask-cors
+httpx
+flask-restx
+marshmallow-sqlalchemy
+flask-migrate
+flask-bcrypt
+flask[async]
