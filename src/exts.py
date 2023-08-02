@@ -1,11 +1,10 @@
-from flask_cors import CORS
 from flask_bcrypt import Bcrypt
-from sqlalchemy import MetaData
-from flask_migrate import Migrate
+from flask_cors import CORS
 from flask_login import LoginManager
-from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-
+from flask_migrate import Migrate
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import MetaData
 
 
 metadata = MetaData(
@@ -27,8 +26,8 @@ db = SQLAlchemy(metadata=metadata)
 
 # login_manager.login_view = "auth_bp.login"
 login_manager.session_protection = "strong"
-login_manager.login_message_category = "info"
-login_manager.needs_refresh_message_category = "info"
+login_manager.login_message_category = "dander"
+login_manager.needs_refresh_message_category = "dander"
 login_manager.login_message = "Veuillez vous connecter pour accéder à cette page."
 login_manager.needs_refresh_message = "Pour protéger votre compte,\
     veuillez vous réauthentifier pour accéder à cette page."
