@@ -14,18 +14,27 @@ help: ## Show this help
 install: ## Install or update dependencies
 	pip install -r env/dev.txt
 
+initdb: ## Init and create database
+	$(MANAGE) flask db init && $(MANAGE) flask init_db
+
+migrate: ## Generate an migration
+	$(MANAGE) flask db migrate -m 'Intial Migration'
+
+upgrade: ## Apply the upgrade to the database
+	$(MANAGE) flask db upgrade
+
 .PHONY: run
 run: ## Run
 	docker compose up -d --build
 
-initdb: ## Init and migrate database
+docker-initdb: ## Init and migrate database
 	docker compose exec web.yimba.io python runserver.py flask db init
 	docker compose exec web.yimba.io python runserver.py flask init_db
 
-migrate: ## Init and migrate database
+docker-migrate: ## Init and migrate database
 	docker compose exec web.yimba.io python runserver.py flask db migrate -m 'Intial Migration'
 
-upgrade: ## Apply the upgrade to the database
+docker-upgrade: ## Apply the upgrade to the database
 	docker compose exec web.yimba.io python runserver.py flask db upgrade
 
 .PHONY: logs

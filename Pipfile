@@ -16,6 +16,8 @@ marshmallow-sqlalchemy = "*"
 flask-migrate = "*"
 flask-bcrypt = "*"
 flask = {extras = ["async"], version = "*"}
+flask-wtf = "*"
+email-validator = "*"
 
 [dev-packages]
 pre-commit = "*"

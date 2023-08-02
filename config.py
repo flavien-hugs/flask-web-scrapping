@@ -1,17 +1,19 @@
+import os
+
 from dotenv import dotenv_values
 
 env = dotenv_values(".flaskenv")
 
 
 class Config:
-
     DEBUG = False
     TESTING = False
     DEVELOPMENT = False
 
     SITE_NAME = "Yimba"
 
-    SECRET_KEY = env.get("SECRET_KEY")
+    SECRET_KEY = env.get("SECRET_KEY", os.urandom(24))
+    print(SECRET_KEY)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     SQLALCHEMY_DATABASE_URI = env.get("DATABASE_URL")
@@ -24,7 +26,6 @@ class Config:
 
 
 class DevConfig(Config):
-
     DEBUG = True
     DEVELOPMENT = True
 
@@ -46,8 +47,4 @@ class ProdConfig(Config):
         yimba_app.logger.addHandler(syslog_handler)
 
 
-config = {
-    "dev":DevConfig,
-    "prod": ProdConfig,
-    "test": TestConfig
-}
+config = {"dev": DevConfig, "prod": ProdConfig, "test": TestConfig}
