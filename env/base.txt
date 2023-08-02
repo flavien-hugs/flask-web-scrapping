@@ -5,8 +5,10 @@ psycopg2-binary
 flask-marshmallow
 flask-cors
 httpx
+flask-wtf
 flask-restx
 marshmallow-sqlalchemy
 flask-migrate
 flask-bcrypt
 flask[async]
+email-validator
