@@ -1,0 +1,20 @@
+{% extends "_base.html" %}
+
+{% block body_content %}
+	<div class="authincation h-100">
+		<div class="container h-100">
+			<div class="row justify-content-center h-100 align-items-center">
+				<div class="col-md-5">
+					<div class="form-input-content text-center error-page">
+						<h1 class="error-text font-weight-bold">{{ error.code }}</h1>
+						<h4><i class="fa fa-thumbs-down text-danger"></i>{{ error.message }}</h4>
+						<p>{{ error.description | capitalize() }}</p>
+						<div>
+							<a class="btn btn-primary" href="{{ request.url_root }}">Retourner à la page d'accueil</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock body_content %}

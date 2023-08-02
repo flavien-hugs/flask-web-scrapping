@@ -1,0 +1,22 @@
+{% extends "_base.html" %}
+
+{% block body_content %}
+	<div id="preloader">
+		<div class="sk-three-bounce">
+			<div class="sk-child sk-bounce1"></div>
+			<div class="sk-child sk-bounce2"></div>
+			<div class="sk-child sk-bounce3"></div>
+		</div>
+	</div>
+
+	<div id="main-wrapper">
+		
+	</div>
+
+{% endblock body_content %}
+
+{% block other_js_src %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='vendor/global.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/custom.min.js') }}"></script>
+{% endblock other_js_src %}

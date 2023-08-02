@@ -1,0 +1,45 @@
+{% extends "_base.html" %}
+
+{% block body_content %}
+    <div class="authincation h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+                                    <h4 class="text-center mb-4">{{ page_title }}</h4>
+                                    
+                                    {% include "partials/message.html" %}
+
+                                    <form action="." method="POST">
+                                        
+                                        {{ form.hidden_tag() }}
+
+                                        <div class="form-group">
+                                            {{ form.name.label(class="mb-1 font-weight-bold") }}
+                                            {{ form.name(class="form-control", placeholder='Ex: Info CIV CAN2024') }}
+                                        </div>
+
+                                        {% if form.name.errors %}
+                                            <div class="invalid-feedback">
+                                                {% for error in form.name.errors %}
+                                                    <span>{{ error }}</span>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+
+                                        <div class="text-center">
+                                            {{ form.submit(class="btn btn-primary btn-block") }}
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body_content %}
