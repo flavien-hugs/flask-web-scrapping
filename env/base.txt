@@ -12,3 +12,4 @@ flask-migrate
 flask-bcrypt
 flask[async]
 email-validator
+flask-moment

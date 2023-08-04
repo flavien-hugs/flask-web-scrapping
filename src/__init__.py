@@ -20,6 +20,7 @@ def create_yimba_app(config_name):
     exts.ma.init_app(yimba_app)
     exts.db.init_app(yimba_app)
     exts.bcrypt.init_app(yimba_app)
+    exts.moment.init_app(yimba_app)
     exts.login_manager.init_app(yimba_app)
     exts.migrate.init_app(yimba_app, exts.db)
     exts.cors.init_app(yimba_app, origins="*", supports_credentials=True)

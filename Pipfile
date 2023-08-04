@@ -18,6 +18,7 @@ flask-bcrypt = "*"
 flask = {extras = ["async"], version = "*"}
 flask-wtf = "*"
 email-validator = "*"
+flask-moment = "*"
 
 [dev-packages]
 pre-commit = "*"
