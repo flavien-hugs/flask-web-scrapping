@@ -1,7 +1,7 @@
 import secrets
 from datetime import datetime
 
-from flask import flash, redirect, url_for
+from flask import flash, current_app, redirect, url_for
 
 from flask_login import UserMixin
 from src.services.commun import CRUDMixin
@@ -41,8 +41,14 @@ class User(UserMixin, CRUDMixin, db.Model):
 
     @classmethod
     def insert_default_user(cls):
-        user = cls(addr_email="yimba@yimba.com")
-        password_hash = "yimba"
+
+        from dotenv import dotenv_values
+        env = dotenv_values(".flaskenv")
+
+        email = env.get("DEFAULT_USER")
+        password = env.get("DEFAULT_PASSWORD")
+        password_hash = password
+        user = cls(addr_email=email)
         user.set_password(password_hash)
         user.save()
 

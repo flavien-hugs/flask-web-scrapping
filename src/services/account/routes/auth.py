@@ -1,14 +1,14 @@
 from flask import(
-    Blueprint, render_template,
+    Blueprint, render_template, session,
     flash, redirect, url_for, request
 )
-from flask_login import login_user, current_user
+from flask_login import login_user, login_required, logout_user, current_user
 
 from src.services.account import User
 from src.services.account.forms import LoginForm, SignupForm
 
 
-auth_bp = Blueprint("auth_bp", __name__, url_prefix="/user/")
+auth_bp = Blueprint("auth_bp", __name__, url_prefix="/auth/")
 
 
 @auth_bp.before_app_request
@@ -20,7 +20,7 @@ def before_request():
 @auth_bp.route("/login/", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for("account_bp.dashboard"))
+        return redirect(url_for("dashboard_bp.dashboard"))
 
     form = LoginForm(request.form)
     if form.validate_on_submit():
@@ -66,3 +66,12 @@ def register():
 
     page_title = "Créer votre compte"
     return render_template("account/signup.html", form=form, page_title=page_title)
+
+
+@auth_bp.get("/logout/")
+@login_required
+def logout():
+    logout_user()
+    flash("Vous avez été déconnecté(e).", category="info")
+    session.clear()
+    return redirect(url_for("auth_bp.login"))
