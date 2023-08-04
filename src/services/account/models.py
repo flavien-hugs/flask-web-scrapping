@@ -1,16 +1,17 @@
-import secrets
 from datetime import datetime
 
-from flask import flash, current_app, redirect, url_for
-
+from flask import flash
+from flask import redirect
+from flask import url_for
+from flask_login import current_user
 from flask_login import UserMixin
+from src.exts import bcrypt
+from src.exts import db
+from src.exts import login_manager
 from src.services.commun import CRUDMixin
-from src.exts import db, bcrypt, login_manager
-
 
 
 class User(UserMixin, CRUDMixin, db.Model):
-
     __tablename__ = "user"
 
     addr_email = db.Column(db.String(180), nullable=True, unique=True)
@@ -41,8 +42,8 @@ class User(UserMixin, CRUDMixin, db.Model):
 
     @classmethod
     def insert_default_user(cls):
-
         from dotenv import dotenv_values
+
         env = dotenv_values(".flaskenv")
 
         email = env.get("DEFAULT_USER")
@@ -54,10 +55,9 @@ class User(UserMixin, CRUDMixin, db.Model):
 
 
 class Project(CRUDMixin, db.Model):
-
     __tablename__ = "project"
     updated_at = None
-    name = db.Column(db.String(255), nullable=False, unique=True)
+    name = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.public_id"), nullable=False)
     user = db.relationship("User", backref="user_project")
 
@@ -69,12 +69,13 @@ class Project(CRUDMixin, db.Model):
 
     @classmethod
     def find_by_name(cls, name):
-        return cls.query.filter_by(name=name).first()
+        return cls.query.filter_by(name=name, user=current_user).first()
 
     @classmethod
     def find(cls):
-        return cls.query.order_by(cls.created_at.desc()).all()
-
+        return (
+            cls.query.filter_by(user=current_user).order_by(cls.created_at.desc()).all()
+        )
 
 
 @login_manager.user_loader

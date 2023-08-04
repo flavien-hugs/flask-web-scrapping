@@ -1,11 +1,10 @@
 import uuid
 from datetime import datetime
 
-from src.exts import db, bcrypt
+from src.exts import db
 
 
 class CRUDMixin(object):
-
     __table_args__ = {"extend_existing": True}
 
     id = db.Column(
@@ -16,12 +15,12 @@ class CRUDMixin(object):
         primary_key=True,
     )
     public_id = db.Column(
-        db.String(40),
-        unique=True, index=True,
-        default=lambda: str(uuid.uuid4())
+        db.String(40), unique=True, index=True, default=lambda: str(uuid.uuid4())
     )
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
-    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow(), default=datetime.utcnow())
+    updated_at = db.Column(
+        db.DateTime, onupdate=datetime.utcnow(), default=datetime.utcnow()
+    )
 
     @classmethod
     def create(cls, **kwargs):

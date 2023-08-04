@@ -1,11 +1,17 @@
-from flask import(
-    Blueprint, render_template, session,
-    flash, redirect, url_for, request
-)
-from flask_login import login_user, login_required, logout_user, current_user
-
+from flask import Blueprint
+from flask import flash
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import session
+from flask import url_for
+from flask_login import current_user
+from flask_login import login_required
+from flask_login import login_user
+from flask_login import logout_user
 from src.services.account import User
-from src.services.account.forms import LoginForm, SignupForm
+from src.services.account.forms import LoginForm
+from src.services.account.forms import SignupForm
 
 
 auth_bp = Blueprint("auth_bp", __name__, url_prefix="/auth/")
@@ -62,7 +68,7 @@ def register():
         """
         flash(msg_success, category="success")
         login_user(user_to_create)
-        return redirect(url_for("project_bp.create_project"))
+        return redirect(url_for("project_bp.create_keywords"))
 
     page_title = "Créer votre compte"
     return render_template("account/signup.html", form=form, page_title=page_title)
