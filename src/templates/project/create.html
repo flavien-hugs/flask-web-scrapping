@@ -10,16 +10,18 @@
                             <div class="col-xl-12">
                                 <div class="auth-form">
                                     <h4 class="text-center mb-4">{{ page_title }}</h4>
-                                    
+
                                     {% include "partials/message.html" %}
 
                                     <form action="." method="POST">
-                                        
+
                                         {{ form.hidden_tag() }}
+                                        {{ form.csrf_token }}
 
                                         <div class="form-group">
-                                            {{ form.name.label(class="mb-1 font-weight-bold") }}
+                                            {{ form.name.label(class="mb-2") }}
                                             {{ form.name(class="form-control", placeholder='Ex: Info CIV CAN2024') }}
+                                            <small>Tapez les phrases séparées par des virgules à surveiller.</small>
                                         </div>
 
                                         {% if form.name.errors %}
@@ -31,7 +33,7 @@
                                         {% endif %}
 
                                         <div class="text-center">
-                                            {{ form.submit(class="btn btn-primary btn-block") }}
+                                            {{ form.submit(class="btn btn-md btn-primary btn-block") }}
                                         </div>
                                     </form>
                                 </div>
