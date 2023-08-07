@@ -8,10 +8,10 @@ from src.services.account import Project
 from src.services.account.forms import ProjectForm
 
 
-project_bp = Blueprint("project_bp", __name__, url_prefix="/project/")
+project_bp = Blueprint("project_bp", __name__, url_prefix="/projects/")
 
 
-@project_bp.route("/create/", methods=["GET", "POST"])
+@project_bp.route("/add/", methods=["GET", "POST"])
 @login_required
 def create_project():
     page_title = "Saisir des mots-clés/phrases-clés"
