@@ -18,17 +18,30 @@ dashboard_bp = Blueprint("dashboard_bp", __name__, url_prefix="/panel/")
 def dashboard():
     page_title = "Tableau de bord"
     return render_template(
-        "dashboard/index.html", page_title=page_title, user=current_user
+        "dashboard/_base.html", page_title=page_title, user=current_user
+    )
+
+
+@dashboard_bp.get("/projects/")
+@login_required
+def get_projects():
+    page_title = "projets"
+    projects = Project.all(current_user)
+    return render_template(
+        "project/list.html",
+        user=current_user,
+        page_title=page_title.capitalize(),
+        projects=projects
     )
 
 
 @dashboard_bp.get("/results/<string:public_id>")
 @login_required
-def read_project(public_id):
+def detail_project(public_id):
     project = utils.abort_if_project_doesnt_exist(public_id)
     page_title = project.name
     return render_template(
-        "project/read.html", user=current_user, page_title=page_title, project=project
+        "project/detail.html", user=current_user, page_title=page_title, project=project
     )
 
 

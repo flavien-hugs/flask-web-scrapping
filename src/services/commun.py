@@ -57,7 +57,3 @@ class CRUDMixin(object):
     @classmethod
     def find_by_public_id(cls, public_id):
         return cls.query.filter_by(public_id=public_id).first()
-
-    @classmethod
-    def all(cls):
-        return cls.query.all()
