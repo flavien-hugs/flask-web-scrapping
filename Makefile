@@ -48,3 +48,11 @@ down: ## Stop the services, remove containers and networks
 .PHONY: destroy-all
 destroy-all: ## destroy one/all images
 	docker rmi -f $(docker images -a -q)
+
+.PHONY: test
+test: ## Run the test
+	coverage run -m pytest tests
+
+.PHONY: report-test
+report-test: ## Display coverage report
+	coverage report -m
