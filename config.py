@@ -20,6 +20,9 @@ class Config:
 
     RESTX_VALIDATE = True
 
+    API_BASE_URL: str = env.get("API_BASE_URL")
+    API_ACCESS_TOKEN: str = env.get("API_ACCESS_TOKEN")
+
     @staticmethod
     def init_app(yimba_app):
         pass
