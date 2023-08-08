@@ -8,6 +8,7 @@ from flask_login import login_required
 from src.services.account import Project
 from src.services.account import utils
 from src.services.account.forms import ProjectForm
+from src.services.apis import instagram
 
 
 dashboard_bp = Blueprint("dashboard_bp", __name__, url_prefix="/panel/")
@@ -40,8 +41,21 @@ def get_projects():
 def detail_project(public_id):
     project = utils.abort_if_project_doesnt_exist(public_id)
     page_title = project.name
+
+    _stats = instagram.instagram_stats()
+    keyword = instagram.instagram_search_keywords(page_title)
+    _keyword_items = keyword['data']['items']
+
+    _item_type = instagram.instagram_list_created_tasks("tag")
+
     return render_template(
-        "project/detail.html", user=current_user, page_title=page_title, project=project
+        "project/detail.html",
+        user=current_user,
+        page_title=page_title,
+        project=project,
+        instagram_stats=_stats,
+        instagram_items=_item_type,
+        instagram_data=_keyword_items,
     )
 
 
