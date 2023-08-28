@@ -1,12 +1,13 @@
-import os
 import logging
+import os
 from logging.handlers import RotatingFileHandler
 
-from flask import Flask
-from flask import jsonify
-
-from src import exts
 from config import config
+from flask import Flask
+from flask import redirect
+from flask import render_template
+from flask import url_for
+from src import exts
 
 
 def create_yimba_app(config_name):
@@ -16,14 +17,72 @@ def create_yimba_app(config_name):
 
     yimba_app.url_map.strict_slashes = False
 
-    exts.ma.init_app(yimba_app)
+    exts.cache.init_app(yimba_app)
     exts.db.init_app(yimba_app)
     exts.bcrypt.init_app(yimba_app)
+    exts.moment.init_app(yimba_app)
     exts.login_manager.init_app(yimba_app)
     exts.migrate.init_app(yimba_app, exts.db)
-    exts.cors.init_app(yimba_app, origins="*", supports_credentials=True)
 
     with yimba_app.app_context():
+        from src.services.account.routes import auth_bp, project_bp
+        from src.services.dashboard.routes import dashboard_bp
+
+        yimba_app.register_blueprint(auth_bp)
+        yimba_app.register_blueprint(project_bp)
+        yimba_app.register_blueprint(dashboard_bp)
+
+        @yimba_app.route("/")
+        def entrypoint():
+            return redirect(url_for("auth_bp.login"))
+
+        @yimba_app.errorhandler(400)
+        def key_error(e):
+            page_title = e.name
+            return (
+                render_template(
+                    "page/error.html",
+                    page_title=page_title,
+                    error=e,
+                ),
+                400,
+            )
+
+        @yimba_app.errorhandler(403)
+        def forbidden(e):
+            page_title = f"erreur {e}"
+            return (
+                render_template(
+                    "page/error.html",
+                    page_title=page_title,
+                    error=e,
+                ),
+                403,
+            )
+
+        @yimba_app.errorhandler(404)
+        def page_not_found(e):
+            page_title = e.name
+            return (
+                render_template(
+                    "page/error.html",
+                    page_title=page_title,
+                    error=e,
+                ),
+                404,
+            )
+
+        @yimba_app.errorhandler(500)
+        def internal_server_error(e):
+            page_title = e.name
+            return (
+                render_template(
+                    "page/error.html",
+                    page_title=page_title,
+                    error=e,
+                ),
+                500,
+            )
 
         @yimba_app.before_request
         def log_entry():

@@ -1,0 +1,35 @@
+{% extends "account/_base.html" %}
+
+{% block account_header %}
+    <div class="text-center mt-4">
+        <h1 class="h2">{{ page_title }}</h1>
+        <p class="lead">
+            Tapez les phrases séparées par des virgules à surveiller.
+        </p>
+    </div>
+{% endblock account_header %}
+
+{% block account_body %}
+    <form action="." method="POST">
+
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+
+        <div class="mb-3">
+            {{ form.name.label(class="form-label mb-2") }}
+            {{ form.name(class="form-control form-control-lg shadow-none", placeholder='Ex: carein') }}
+        </div>
+
+        {% if form.name.errors %}
+            <div class="invalid-feedback">
+                {% for error in form.name.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="d-grid gap-2 mt-3">
+            {{ form.submit(class="btn btn-lg btn-primary") }}
+        </div>
+    </form>
+{% endblock account_body %}

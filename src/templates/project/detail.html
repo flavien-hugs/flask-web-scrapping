@@ -1,0 +1,14 @@
+{% extends "dashboard/_base.html" %}
+
+{% block body_content_dashboard %}
+	<div class="row">
+		{% include "dashboard/paths/_kpi.html" %}
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			{% for item in item %}
+				{% include "dashboard/paths/_data.html" %}
+			{% endfor %}
+		</div>
+	</div>	
+{% endblock body_content_dashboard %}

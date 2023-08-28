@@ -1,0 +1,49 @@
+<div class="card">
+    <div class="card-header border-0 pb-0">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <div>
+                    <div class="nav nav-divider">
+                        <h6 class="nav-item card-title mb-0">
+                            {{ item.owner_username|default('Carein', true) }}
+                        </h6>
+                    </div>
+                    <p class="mb-0 small">Web Developer at Webestica</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <p>{{ item.text|truncate(225, True) }}</p>
+        <ul class="nav nav-pills nav-pills-light nav-fill nav-stack small border-top border-bottom py-1 my-3">
+            <li class="nav-item">
+                <span class="nav-link">
+                    <i class="align-middle me-1" data-feather="calendar"></i>
+                    Publié le {{ item.created_time }}
+                </span>
+            </li>
+
+            <li class="nav-item">
+                <span class="nav-link">
+                    <i class="align-middle me-1" data-feather="heart"></i>
+                    Likes ({{ item.reactions_total_count|default('0', true) }})
+                </span>
+            </li>
+
+            <li class="nav-item">
+                <span class="nav-link">
+                    <i class="align-middle me-1" data-feather="repeat"></i>
+                    Commentaires ({{ item.comments_count|default('0', true) }})
+                </span>
+            </li>
+
+            <li class="nav-item">
+                <span class="nav-link">
+                    <i class="align-middle me-1" data-feather="share-2"></i>
+                    Partages ({{ item.shares_count|default('0', true) }})
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

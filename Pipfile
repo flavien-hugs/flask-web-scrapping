@@ -8,20 +8,23 @@ python-dotenv = "*"
 flask-sqlalchemy = "*"
 flask-login = "*"
 psycopg2-binary = "*"
-flask-marshmallow = "*"
 flask-cors = "*"
 httpx = "*"
-flask-restx = "*"
-marshmallow-sqlalchemy = "*"
-flask-migrate = "*"
 flask-bcrypt = "*"
 flask = {extras = ["async"], version = "*"}
+flask-wtf = "*"
+email-validator = "*"
+flask-moment = "*"
+flask-caching = "*"
+flask-migrate = "*"
 
 [dev-packages]
 pre-commit = "*"
 black = "*"
 flake8 = "*"
 isort = "*"
+pytest = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.10"

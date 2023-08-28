@@ -1,0 +1,67 @@
+{% extends "account/_base.html" %}
+
+{% block account_header %}
+    <div class="text-center mt-4">
+        <h1 class="h2">Commençons</h1>
+        <p class="lead">
+            Commencez à créer la meilleure expérience.
+        </p>
+    </div>
+{% endblock account_header %}
+
+{% block account_body %}
+    <form action="." method="POST">
+
+        {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
+
+        <div class="mb-3">
+            {{ form.addr_email.label(class="form-label") }}
+            {{ form.addr_email(class="form-control form-control-lg shadow-none", placeholder='Ex: hello@example.com') }}
+        </div>
+
+        {% if form.addr_email.errors %}
+            <div class="invalid-feedback">
+                {% for error in form.addr_email.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="mb-3">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control form-control-lg shadow-none", placeholder='****************') }}
+        </div>
+
+        {% if form.password.errors %}
+            <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="mb-3">
+            {{ form.confirm_password.label(class="form-label") }}
+            {{ form.confirm_password(class="form-control form-control-lg shadow-none", placeholder='****************') }}
+        </div>
+
+        {% if form.confirm_password.errors %}
+            <div class="invalid-feedback">
+                {% for error in form.confirm_password.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="d-grid gap-2 mt-3">
+            {{ form.submit(class="btn btn-lg btn-primary") }}
+        </div>
+    </form>
+{% endblock account_body %}
+
+{% block account_footer %}
+    <div class="text-center mb-3">
+        Vous avez déjà un compte ? <a href='{{ url_for('auth_bp.login') }}'>Connectez-vous</a>
+    </div>
+{% endblock account_footer %}

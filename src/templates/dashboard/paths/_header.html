@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand navbar-light navbar-bg">
+    <a class="sidebar-toggle js-sidebar-toggle">
+        <i class="hamburger align-self-center"></i>
+    </a>
+
+    <form class="d-none d-sm-inline-block">
+        <div class="input-group input-group-navbar">
+            <input type="text" class="form-control shadow-none" placeholder="Rechercher ... " aria-label="Rechercher">
+            <button class="btn" type="button">
+                <i class="align-middle" data-feather="search"></i>
+            </button>
+        </div>
+    </form>
+
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav navbar-align">
+            <li class="nav-item dropdown">
+                <a class="nav-icon pe-md-0 dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                    <img class="avatar img-fluid rounded" src="{{ url_for('static', filename='img/avatar.jpg') }}" alt="{{ user }}"/>
+                </a>
+                <div class="dropdown-menu dropdown-menu-end">
+                    <a class='dropdown-item' href='#!l'><i class="align-middle me-1" data-feather="user"></i>Profile</a>
+                    <div class="dropdown-divider"></div>
+                    <a href="#!" class="dropdown-item">
+                        <i class="align-middle me-1" data-feather="settings"></i>
+                        Paramètre du compte
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a href="{{ url_for('auth_bp.logout') }}" class="dropdown-item">
+                        Logout
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

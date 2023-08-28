@@ -1,0 +1,61 @@
+{% extends "_base.html" %}
+
+{% block body_content %}
+	<div class="wrapper">
+		{% include "dashboard/paths/_sidebar.html" %}
+
+		<div class="main">
+			{% include "dashboard/paths/_header.html" %}
+
+			<main class="content">
+				<div class="container-fluid p-0">
+					<div class="row mb-2 mb-xl-3">
+						<div class="col-auto d-none d-sm-block">
+							<h3>{{ page_title }}</h3>
+						</div>
+						<div class="col-auto ms-auto text-end mt-n1">
+							<a href="{{ url_for('project_bp.create_project') }}" class="btn btn-primary">Nouveau projet</a>
+						</div>
+					</div>
+
+					{% block body_content_dashboard %}
+						<div class="row">
+							{% include "dashboard/paths/_kpi.html" %}
+						</div>
+						<div class="row">
+							<div class="col-md-8">
+								{%- for item in items %}
+								    {% include "dashboard/paths/_data.html" %}
+								{%- endfor %}
+							</div>
+						</div>	
+					{% endblock body_content_dashboard %}
+				</div>
+			</main>
+
+			<footer class="footer">
+	            <div class="container-fluid">
+	            	<div class="row text-muted">
+	            		<div class="col-6 text-start">
+							<p class="mb-0">
+								<a href="/" class="text-muted"><strong>{{ config.SITE_NAME }}</strong></a>
+								&copy; {{ moment().format('YYYY') }}
+							</p>
+						</div>
+
+		            	<div class="col-6 text-end">
+		            		<ul class="list-inline">
+		            			<li class="list-inline-item">
+		            				<a class="text-muted" href="#">Support</a>
+		            			</li>
+		            		</ul>
+		            	</div>
+	            	</div>
+	            </div>
+	        </footer>
+		</div>
+	</div>
+
+	{{ moment.include_moment() }}
+    {{ moment.locale(auto_detect=True) }}
+{% endblock body_content %}

@@ -1,11 +1,10 @@
-from flask_cors import CORS
 from flask_bcrypt import Bcrypt
-from sqlalchemy import MetaData
-from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_migrate import Migrate
+from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-
+from sqlalchemy import MetaData
+from flask_caching import Cache
 
 
 metadata = MetaData(
@@ -18,17 +17,17 @@ metadata = MetaData(
     }
 )
 
-cors = CORS()
 bcrypt = Bcrypt()
-ma = Marshmallow()
 migrate = Migrate()
+moment = Moment()
 login_manager = LoginManager()
 db = SQLAlchemy(metadata=metadata)
+cache = Cache(config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 300})
 
 # login_manager.login_view = "auth_bp.login"
 login_manager.session_protection = "strong"
-login_manager.login_message_category = "info"
-login_manager.needs_refresh_message_category = "info"
+login_manager.login_message_category = "dander"
+login_manager.needs_refresh_message_category = "dander"
 login_manager.login_message = "Veuillez vous connecter pour accéder à cette page."
 login_manager.needs_refresh_message = "Pour protéger votre compte,\
     veuillez vous réauthentifier pour accéder à cette page."

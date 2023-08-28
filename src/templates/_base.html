@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr" class="h-100">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% block other_css_src %}
+            <link rel="stylesheet" href="{{ url_for('static', filename='css/light.css') }}">
+        {% endblock other_css_src %}
+
+        <title>
+            {% block head_title %}
+                {{ page_title|safe }}
+            {% endblock head_title %}
+            &smid; {{ config.SITE_NAME }}
+        </title>
+    </head>
+
+    <body data-theme="default" data-layout="fluid" data-sidebar-position="left" data-sidebar-layout="default">
+        {% block body_content %}
+        {% endblock body_content %}
+
+        {% block other_js_src %}
+            <script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>
+        {% endblock other_js_src %}
+    </body>
+</html>
