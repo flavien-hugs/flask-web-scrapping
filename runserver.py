@@ -34,4 +34,4 @@ def init_db():
 
 
 if __name__ == "__main__":
-    yimba_app.run(threaded=True, port=5055)
+    yimba_app.run(threaded=True, port=5088)
