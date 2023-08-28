@@ -1,12 +1,14 @@
 import logging
 
 import httpx
+from src.exts import cache
 from .func_utils import FACEBOOK_BASE_URL, ACCESS_TOKEN
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
+@cache.cached(timeout=500)
 def facebook_search_keyword(keyword: str):
 
     facebook_req_url = f"{FACEBOOK_BASE_URL}search/{keyword}/posts/latest/posts?access_token={ACCESS_TOKEN}&lang=fr,en&order_by=date_desc&max_page_size=50"
@@ -23,6 +25,7 @@ def facebook_search_keyword(keyword: str):
         logger.error(f"Request error: {err})")
 
 
+@cache.cached(timeout=500)
 def faceebook_post_by_id(post_id: str):
 
     facebook_req_url = f"{FACEBOOK_BASE_URL}post/{post_id}?access_token={ACCESS_TOKEN}"
@@ -39,6 +42,7 @@ def faceebook_post_by_id(post_id: str):
         logger.error(f"Request error: {err})")
 
 
+@cache.cached(timeout=500)
 def faceebook_post_comment(post_id: str):
 
     facebook_req_url = f"{FACEBOOK_BASE_URL}post/{post_id}/comments?access_token={ACCESS_TOKEN}"
