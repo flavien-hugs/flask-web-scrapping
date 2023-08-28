@@ -1,6 +1,8 @@
-from flask import abort
 from http import HTTPStatus
-from src.services.account import User, Project
+
+from flask import abort
+from src.services.account import Project
+from src.services.account import User
 
 
 def abort_if_user_doesnt_exist(public_id: str):
