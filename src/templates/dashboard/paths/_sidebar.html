@@ -1,34 +1,48 @@
-<div class="deznav">
-    <div class="deznav-scroll">
-        <ul class="nav menu-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#dashboard">
-                    <svg id="icon-pages" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
-                        <rect x="3" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="3" width="7" height="7"></rect>
-                        <rect x="14" y="14" width="7" height="7"></rect>
-                        <rect x="3" y="14" width="7" height="7"></rect>
-                    </svg>
+<nav id="sidebar" class="sidebar js-sidebar">
+    <div class="sidebar-content js-simplebar">
+        <a class='sidebar-brand' href='{{ url_for('dashboard_bp.dashboard') }}'>
+            <span class="sidebar-brand-text align-middle">
+                {{ config.SITE_NAME }}
+            </span>
+            <svg class="sidebar-brand-icon align-middle" width="32px" height="32px" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"
+                stroke-linecap="square" stroke-linejoin="miter" color="#FFFFFF" style="margin-left: -3px">
+                <path d="M12 4L20 8.00004L12 12L4 8.00004L12 4Z"></path>
+                <path d="M20 12L12 16L4 12"></path>
+                <path d="M20 16L12 20L4 16"></path>
+            </svg>
+        </a>
+
+        <ul class="sidebar-nav">
+            <li class="sidebar-item active">
+                <a href="{{ url_for('dashboard_bp.dashboard') }}" class="sidebar-link">
+                    <i class="align-middle" data-feather="sliders"></i>
+                    <span class="align-middle">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#apps">
-                    <svg id="icon-table" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-server">
-                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                        <line x1="6" y1="6" x2="6" y2="6"></line>
-                        <line x1="6" y1="18" x2="6" y2="18"></line>
-                    </svg>
+
+            <li class="sidebar-item">
+                <div class="sidebar-link">
+                    <i class="align-middle" data-feather="layout"></i>
+                    <span class="align-middle">Projets</span>
+                    <a href="{{ url_for('project_bp.create_project') }}">
+                        <span class="sidebar-badge badge bg-primary">+</span>
+                    </a>
+                </div>
+            </li>
+
+            <li class="sidebar-item">
+                <a data-bs-target="#tags" data-bs-toggle="collapse" class="sidebar-link collapsed">
+                    <i class="align-middle" data-feather="check-circle"></i>
+                    <span class="align-middle">Tag</span>
                 </a>
+                <ul id="tags" class="sidebar-dropdown list-unstyled collapse " data-bs-parent="#sidebar">
+                    {% for project in user.user_project %}
+                        <li class="sidebar-item">
+                            <a class='sidebar-link' href='{{ url_for('dashboard_bp.detail_project', public_id=project.public_id) }}'>{{ project.name | capitalize() }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
             </li>
         </ul>
     </div>
-
-    <a href="{{ url_for('auth_bp.logout') }}" class="logout-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-log-out">
-            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-            <polyline points="16 17 21 12 16 7"></polyline>
-            <line x1="21" y1="12" x2="9" y2="12"></line>
-        </svg>
-    </a>
-</div>
+</nav>
