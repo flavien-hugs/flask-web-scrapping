@@ -14,6 +14,7 @@
 							<h3>{{ page_title }}</h3>
 						</div>
 						<div class="col-auto ms-auto text-end mt-n1">
+							<a href="{{ url_for('dashboard_bp.get_projects') }}" class="btn btn-light bg-white me-2">Liste des projets</a>
 							<a href="{{ url_for('project_bp.create_project') }}" class="btn btn-primary">Nouveau projet</a>
 						</div>
 					</div>
@@ -27,6 +28,9 @@
 								{%- for item in items %}
 								    {% include "dashboard/paths/_data.html" %}
 								{%- endfor %}
+							</div>
+							<div class="col-md-4">
+								{% include "dashboard/paths/_leftbar.html" %}
 							</div>
 						</div>	
 					{% endblock body_content_dashboard %}
