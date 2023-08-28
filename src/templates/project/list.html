@@ -1,5 +1,83 @@
 {% extends "dashboard/_base.html" %}
 
+{% block bady_header_top %}
+{% endblock bady_header_top %}
+
 {% block body_content_dashboard %}
-				    
+
+	{% include "partials/message.html" %}
+
+	<div class="row">
+		<div class="col-xl-8">
+			<div class="card">
+				<div class="card-header pb-0">
+					<div class="card-actions float-end">
+						<div class="col-auto ms-auto text-end mt-n1">
+							<a href="{{ url_for('project_bp.create_project') }}" class="btn btn-danger text-white">
+								<i data-feather="plus"></i> Nouveau projet
+							</a>
+						</div>
+					</div>
+					<h5 class="card-title mb-0">
+						Projets
+					</h5>
+					<span class="small text-muted py-1">Sélectionner un projet et parcourir les mentions</span>
+				</div>
+
+				<div class="card-body">
+					<table class="table table-responsive table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Projet</th>
+								<th>Like</th>
+								<th>Commentaire</th>
+								<th>Partage</th>
+								<th>Date de crétaion</th>
+								<th>Paramètres</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for item in user.user_project %}
+								<tr>
+									<td class="dtr-content" tabindex="0">
+										{{ item.id }}
+									</td>
+
+									<td>
+										<a href="{{ url_for('dashboard_bp.detail_project', public_id=item.public_id) }}">{{ item.name | capitalize() }}</a>
+									</td>
+
+									<td>
+										{{ stat[0] }}
+									</td>
+
+									<td>
+										{{ stat[1] }}
+									</td>
+
+									<td>
+										{{ stat[2] }}
+									</td>
+
+									<td>
+										{{ moment(item.created_at).format('LL') }}
+									</td>
+
+									<td>
+										<a href="{{ url_for('dashboard_bp.update_project', public_id=item.public_id) }}" class="btn btn-primary btn-sm">
+											<i class="me-1" data-feather="edit-3"></i>
+										</a>
+										<a type="submit" class="btn btn-danger btn-sm" href="{{ url_for('dashboard_bp.delete_project', public_id=item.public_id) }}">
+											<i class="me-1" data-feather="trash-2"></i>
+				                        </form>
+									</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock body_content_dashboard %}
