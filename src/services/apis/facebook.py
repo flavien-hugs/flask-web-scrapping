@@ -1,19 +1,19 @@
 import logging
 
 import httpx
-from .func_utils import INSTAGRAM_BASE_URL, ACCESS_TOKEN
+from .func_utils import FACEBOOK_BASE_URL, ACCESS_TOKEN
 
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 
-def instagram_search_keyword(keyword: str):
+def facebook_search_keyword(keyword: str):
 
-    instagram_req_url = f"{INSTAGRAM_BASE_URL}tag/{keyword}/posts?access_token={ACCESS_TOKEN}&lang=fr,en&order_by=date_desc&max_page_size=50"
+    facebook_req_url = f"{FACEBOOK_BASE_URL}search/{keyword}/posts/latest/posts?access_token={ACCESS_TOKEN}&lang=fr,en&order_by=date_desc&max_page_size=50"
 
     try:
         with httpx.Client() as client:
-            response = client.get(instagram_req_url)
+            response = client.get(facebook_req_url)
             if response.status_code == 200:
                 data = response.json()
                 return data
@@ -23,13 +23,13 @@ def instagram_search_keyword(keyword: str):
         logger.error(f"Request error: {err})")
 
 
-def instagram_stats():
+def faceebook_post_by_id(post_id: str):
 
-    instagram_req_url = f"{INSTAGRAM_BASE_URL}stats?access_token={ACCESS_TOKEN}"
+    facebook_req_url = f"{FACEBOOK_BASE_URL}post/{post_id}?access_token={ACCESS_TOKEN}"
 
     try:
         with httpx.Client() as client:
-            response = client.get(instagram_req_url)
+            response = client.get(facebook_req_url)
             if response.status_code == 200:
                 data = response.json()
                 return data
@@ -39,13 +39,13 @@ def instagram_stats():
         logger.error(f"Request error: {err})")
 
 
-def instagram_list_created_tasks(item_type: str):
+def faceebook_post_comment(post_id: str):
 
-    instagram_req_url = f"{INSTAGRAM_BASE_URL}{item_type}/tasks/?access_token={ACCESS_TOKEN}"
+    facebook_req_url = f"{FACEBOOK_BASE_URL}post/{post_id}/comments?access_token={ACCESS_TOKEN}"
 
     try:
         with httpx.Client() as client:
-            response = client.get(instagram_req_url)
+            response = client.get(request_url)
             if response.status_code == 200:
                 data = response.json()
                 return data
