@@ -1,11 +1,10 @@
 from flask_bcrypt import Bcrypt
-from flask_cors import CORS
 from flask_login import LoginManager
-from flask_marshmallow import Marshmallow
 from flask_migrate import Migrate
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
+from flask_caching import Cache
 
 
 metadata = MetaData(
@@ -18,13 +17,12 @@ metadata = MetaData(
     }
 )
 
-cors = CORS()
 bcrypt = Bcrypt()
-ma = Marshmallow()
 migrate = Migrate()
 moment = Moment()
 login_manager = LoginManager()
 db = SQLAlchemy(metadata=metadata)
+cache = Cache(config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 300})
 
 # login_manager.login_view = "auth_bp.login"
 login_manager.session_protection = "strong"
