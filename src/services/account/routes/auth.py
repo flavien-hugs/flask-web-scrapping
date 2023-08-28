@@ -68,7 +68,7 @@ def register():
         """
         flash(msg_success, category="success")
         login_user(user_to_create)
-        return redirect(url_for("project_bp.create_keywords"))
+        return redirect(url_for("project_bp.create_project"))
     page_title = "Créer votre compte"
     return render_template("account/signup.html", form=form, page_title=page_title)
 
