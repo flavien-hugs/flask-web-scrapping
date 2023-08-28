@@ -115,4 +115,4 @@ class ProjectForm(FlaskForm):
         render_kw={"required": True},
         validators=[DataRequired(), InputRequired()],
     )
-    submit = SubmitField("Créer")
+    submit = SubmitField("Créer le projet")
