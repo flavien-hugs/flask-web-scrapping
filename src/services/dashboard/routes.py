@@ -69,7 +69,7 @@ def detail_project(public_id: str):
     project = utils.abort_if_project_doesnt_exist(public_id)
 
     page_title = project.name
-    page_title = f"Tag '{project.name}!r' data"
+    page_title = "Tag '{0}' data".format(project.name)
 
     items_data = g.data.get_detail(project.name)
 
@@ -90,7 +90,7 @@ def detail_project(public_id: str):
 def facebook_detail_project(public_id: str):
     project = utils.abort_if_project_doesnt_exist(public_id)
 
-    page_title = f"Facebook data : '{project.name}!r'"
+    page_title = f"Facebook data : '{project.name}'"
 
     data = Facebook(current_user)
     items_data = data.get_detail(project.name)
@@ -111,7 +111,7 @@ def facebook_detail_project(public_id: str):
 def instagram_detail_project(public_id: str):
     project = utils.abort_if_project_doesnt_exist(public_id)
 
-    page_title = f"Instagram data : '{project.name}!r'"
+    page_title = "Instagram data : '{0}'".format(project.name)
 
     data = Instagram(current_user)
     items_data = data.get_detail(project.name)
