@@ -1,5 +1,7 @@
 *.md
 .git
+.github
+*.sqlite3
 .gitignore
 readme.md
 LICENSE
@@ -8,3 +10,4 @@ LICENSE
 .flake8
 .gitattributes
 .editorconfig
+.pre-commit-config.yaml

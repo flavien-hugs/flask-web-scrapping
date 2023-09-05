@@ -2,10 +2,14 @@ EMAIL = "email@gmail.com"
 PASSWORD = "password"
 
 
-def _create_user(client, addr_email=EMAIL, password=PASSWORD, confirm_password=PASSWORD):
+def _create_user(
+    client, addr_email=EMAIL, password=PASSWORD, confirm_password=PASSWORD
+):
     response = client.post(
         "/auth/register-account/",
-        data=dict(addr_email=addr_email, password=password, confirm_password=confirm_password)
+        data=dict(
+            addr_email=addr_email, password=password, confirm_password=confirm_password
+        ),
     )
     assert response.status_code == 200
     data = response.data.decode()
@@ -14,7 +18,8 @@ def _create_user(client, addr_email=EMAIL, password=PASSWORD, confirm_password=P
 
 def _login_user(client, addr_email=EMAIL, password=PASSWORD):
     response = client.post(
-        "/auth/login/", data=dict(addr_email=addr_email, password=password),
+        "/auth/login/",
+        data=dict(addr_email=addr_email, password=password),
     )
 
     assert response.status_code == 200
@@ -23,6 +28,6 @@ def _login_user(client, addr_email=EMAIL, password=PASSWORD):
 
 
 def _logout_user(client):
-    return client.get("/auth/logout/")
+    response = client.get("/auth/logout/")
     assert response.status_code == 302
     assert response.location == "/auth/login/"

@@ -1,6 +1,4 @@
 from tests import utils
-from flask_login import current_user
-from src.services.account import User
 
 
 def test_get_entrypoint(client):

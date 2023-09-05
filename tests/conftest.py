@@ -1,12 +1,9 @@
 import sys
+
 import pytest
-
 from flask import current_app
-
-from src.services.account import User
-
-from src.exts import db
 from src import create_yimba_app
+from src.exts import db
 
 sys.path.append("..")
 

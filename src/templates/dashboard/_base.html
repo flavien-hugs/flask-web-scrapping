@@ -9,16 +9,24 @@
 
 			<main class="content">
 				<div class="container-fluid p-0">
-					<div class="row mb-2 mb-xl-3">
-						<div class="col-auto d-none d-sm-block">
-							<h3>{{ page_title }}</h3>
+
+					{% block bady_header_top %}
+						<div class="row mb-2 mb-xl-3">
+							<div class="col-auto d-none d-sm-block">
+								<h3>{{ page_title }}</h3>
+							</div>
+
+						    <div class="col-auto ms-auto text-end mt-n1">
+								<a href="{{ url_for('dashboard_bp.get_projects') }}" class="btn btn-light bg-white me-2">Liste des projets</a>
+								<a href="{{ url_for('project_bp.create_project') }}" class="btn btn-primary">Nouveau projet</a>
+							</div>
 						</div>
-						<div class="col-auto ms-auto text-end mt-n1">
-							<a href="{{ url_for('project_bp.create_project') }}" class="btn btn-primary">Nouveau projet</a>
-						</div>
-					</div>
+					{% endblock bady_header_top %}
 
 					{% block body_content_dashboard %}
+
+						{% include "partials/message.html" %}
+
 						<div class="row">
 							{% include "dashboard/paths/_kpi.html" %}
 						</div>
@@ -28,7 +36,10 @@
 								    {% include "dashboard/paths/_data.html" %}
 								{%- endfor %}
 							</div>
-						</div>	
+							<div class="col-md-4">
+								{% include "dashboard/paths/_leftbar.html" %}
+							</div>
+						</div>
 					{% endblock body_content_dashboard %}
 				</div>
 			</main>

@@ -1,5 +1,9 @@
 FROM python:3.10
 
+RUN echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
+
+RUN apt-get update && apt-get install -y sysfsutils
+
 WORKDIR /yimba
 
 COPY ./env/prod.txt /yimba/env/

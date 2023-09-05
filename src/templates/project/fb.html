@@ -1,0 +1,41 @@
+{% extends "dashboard/_base.html" %}
+
+{% block body_content_dashboard %}
+	<div class="row">
+		{% include "dashboard/paths/_kpi.html" %}
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			{% for item in item %}
+				{% include "dashboard/paths/_data.html" %}
+			{% endfor %}
+		</div>
+		<div class="col-md-4">
+			<div class="card flex-fill">
+				<div class="card-body">
+					<h3>{{ page_title }}</h3>
+					<div class="d-flex mb-3">
+						<div class="flex-grow-1">
+							<strong><i class="align-middle me-1 mb-1" data-feather="heart"></i> Likes</strong>
+							<h2 class="text-muted">{{ stat[0] }}</h2>
+						</div>
+					</div>
+
+					<div class="d-flex mb-3">
+						<div class="flex-grow-1">
+							<strong><i class="align-middle me-1 mb-1" data-feather="repeat"></i> Commentaires</strong>
+							<h2 class="text-muted">{{ stat[1] }}</h2>
+						</div>
+					</div>
+
+					<div class="d-flex mb-3">
+						<div class="flex-grow-1">
+							<strong><i class="align-middle me-1 mb-1" data-feather="share-2"></i> Partages</strong>
+							<h2 class="text-muted">{{ stat[2] }}</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock body_content_dashboard %}

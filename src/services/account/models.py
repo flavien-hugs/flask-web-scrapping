@@ -74,9 +74,7 @@ class Project(CRUDMixin, db.Model):
     @classmethod
     def all(cls, user):
         return (
-            cls.query\
-            .filter_by(user=current_user)\
-            .order_by(cls.created_at.desc()).all()
+            cls.query.filter_by(user=current_user).order_by(cls.created_at.desc()).all()
         )
 
 
