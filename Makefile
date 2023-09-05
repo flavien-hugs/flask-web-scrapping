@@ -5,6 +5,9 @@ ifneq (,$(wildcard ./.flaskenv))
     export
 endif
 
+COMPOSE_FILES := docker-compose.yaml
+.DEFAULT_GOAL := help
+
 .PHONY: help
 help: ## Show this help
 	@echo "Available targets:"
@@ -26,6 +29,10 @@ upgrade: ## Apply the upgrade to the database
 .PHONY: run
 run: ## Run
 	docker compose up -d --build
+
+.PHONY: restart
+restart:	## restart one/all containers
+	docker compose restart $(s)
 
 docker-initdb: ## Init and migrate database
 	docker compose exec web.yimba.io python runserver.py flask db init
