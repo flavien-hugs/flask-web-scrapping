@@ -14,7 +14,7 @@ def test_register_user_success(client):
 def test_login_user_success(client):
     utils._create_user(client, "email@gmail.com", "password", "password")
     utils._login_user(client, "email@gmail.com", "password")
-    response = client.get("/panel/")
+    response = client.get("/panel/~/dashboard/")
     assert response.status_code == 302
 
 
