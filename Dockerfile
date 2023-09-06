@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y sysfsutils
 
 WORKDIR /yimba
 
-COPY ./env/prod.txt /yimba/env/
+COPY ./env/base.txt /yimba/env/
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -18,7 +18,7 @@ ENV PYTHONUNBUFFERED=1 \
 
 RUN python -m venv $VIRTUAL_ENV && \
     pip install --upgrade pip && \
-    pip install --no-cache-dir -r /yimba/env/prod.txt
+    pip install --no-cache-dir -r /yimba/env/base.txt
 
 EXPOSE 5000
 
