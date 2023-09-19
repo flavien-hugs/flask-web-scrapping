@@ -13,7 +13,6 @@ class Config:
     SITE_NAME = "Yimba"
 
     SECRET_KEY = env.get("SECRET_KEY", os.urandom(24))
-    print(SECRET_KEY)
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     SQLALCHEMY_DATABASE_URI = env.get("DATABASE_URL")
