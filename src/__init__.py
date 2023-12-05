@@ -107,6 +107,6 @@ def create_yimba_app(config_name):
 
             yimba_app.logger.addHandler(file_handler)
             yimba_app.logger.setLevel(logging.INFO)
-            yimba_app.logger.info("running oncoflow app")
+            yimba_app.logger.info("running yimba app")
 
         return yimba_app
