@@ -12,24 +12,5 @@ services:
       - .:/web/app
     ports:
       - ${APP_PORT}:5000
-    depends_on:
-      - cache.redis.io
     env_file:
       - dotenv/dev.env
-
-  cache.redis.io:
-    image: redis:alpine
-    restart: always
-    command: redis-server --loglevel ${REDIS_LOG_LEVEL} --requirepass ${REDIS_PASSWORD}
-    volumes:
-      - redis_data:/data
-    env_file:
-      - dotenv/redis.env
-    healthcheck:
-      test: [ "CMD", "redis-cli", "ping" ]
-      interval: 10s
-      timeout: 30s
-      retries: 3
-
-volumes:
-  redis_data: {}

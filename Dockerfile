@@ -1,11 +1,10 @@
 FROM python:alpine3.18
 
-RUN apk --no-cache add postgresql-client
+LABEL maintainer="flavienhugs@pm.me"
 
 WORKDIR /web/app
 
 COPY . /web/app
-RUN chmod +x /web/app/entrypoint.sh
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -17,7 +16,10 @@ ENV PYTHONUNBUFFERED=1 \
 
 RUN python -m venv $VIRTUAL_ENV && \
     pip install --upgrade pip && \
-    pip install --no-cache-dir -r /web/app/env/base.txt
+    pip install --no-cache-dir -r /web/app/env/base.txt && \
+    rm -rf /root/.cache
+
+RUN chmod +x /web/app/entrypoint.sh
 
 RUN chgrp -R 0 /web/app && \
     chmod -R g+rwX /web/app

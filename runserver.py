@@ -1,5 +1,5 @@
-import os
 import logging as lg
+import os
 
 from flask_migrate import Migrate
 from flask_migrate import upgrade

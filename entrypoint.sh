@@ -1,16 +1,9 @@
-#!/bin/sh
+#!/bin/bash
 
-if [ "$DATABASE" = "postgres" ]
-then
-    echo "Waiting for postgres..."
+# Initialisation de la base de données Flask
+python runserver.py flask flask db init
 
-    while ! nc -z $SQL_HOST $SQL_PORT; do
-      sleep 0.1
-    done
-
-    echo "PostgreSQL started"
-fi
-
+# Initialisation de la base de données
 python runserver.py flask init_db
 
 exec "$@"

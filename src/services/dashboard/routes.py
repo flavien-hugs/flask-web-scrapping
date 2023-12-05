@@ -90,7 +90,7 @@ def detail_project(public_id: str):
 def facebook_detail_project(public_id: str):
     project = utils.abort_if_project_doesnt_exist(public_id)
 
-    page_title = f"Facebook data : '{project.name}'"
+    page_title = f"Facebook data : '{project.name}!r'"
 
     data = Facebook(current_user)
     items_data = data.get_detail(project.name)

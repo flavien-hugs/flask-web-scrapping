@@ -52,7 +52,7 @@ logs: ## View logs from one/all containers
 
 .PHONY: down
 down: ## Stop the services, remove containers and networks
-	docker compose down -v
+	docker compose down
 
 .PHONY: prune
 prune: ## destroy one/all images

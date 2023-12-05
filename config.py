@@ -15,9 +15,9 @@ class Config:
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_ECHO = False
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(
-        BASE_DIR, "dev.sqlite3"
-    )
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "DATABASE_URL"
+    ) or "sqlite:///" + os.path.join(BASE_DIR, "dev.sqlite3")
 
     RESTX_VALIDATE = True
 
