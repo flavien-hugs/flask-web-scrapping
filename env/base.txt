@@ -14,3 +14,4 @@ flask[async]
 email-validator
 flask-moment
 Flask-Caching
+gunicorn
