@@ -1,7 +1,6 @@
 import os
 import logging as lg
 
-from dotenv import dotenv_values
 from flask_migrate import Migrate
 from flask_migrate import upgrade
 from src import create_yimba_app
@@ -9,10 +8,8 @@ from src.exts import db
 from src.services.account import Project
 from src.services.account import User
 
-env = dotenv_values(".flaskenv")
 
-
-yimba_app = create_yimba_app(env.get("FLASK_CONFIG"))
+yimba_app = create_yimba_app(os.environ.get("FLASK_CONFIG"))
 migrate = Migrate(yimba_app, db, render_as_batch=True)
 
 
@@ -35,5 +32,4 @@ def init_db():
 
 
 if __name__ == "__main__":
-    APP_HOST = os.environ.get("APP_HOST")
-    yimba_app.run(host=APP_HOST)
+    yimba_app.run(host=os.environ.get("APP_HOST"))

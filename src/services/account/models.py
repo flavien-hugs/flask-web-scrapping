@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 
 from flask import flash
@@ -42,12 +43,8 @@ class User(UserMixin, CRUDMixin, db.Model):
 
     @classmethod
     def insert_default_user(cls):
-        from dotenv import dotenv_values
-
-        env = dotenv_values(".flaskenv")
-
-        email = env.get("DEFAULT_USER")
-        password = env.get("DEFAULT_PASSWORD")
+        email = os.environ.get("DEFAULT_USER")
+        password = os.environ.get("DEFAULT_PASSWORD")
         password_hash = password
         user = cls(addr_email=email)
         user.set_password(password_hash)
@@ -74,8 +71,13 @@ class Project(CRUDMixin, db.Model):
     @classmethod
     def all(cls, current_user):
         if current_user.is_authenticated:
-            return cls.query.filter_by(user=current_user).order_by(cls.created_at.desc()).all()
+            return (
+                cls.query.filter_by(user=current_user)
+                .order_by(cls.created_at.desc())
+                .all()
+            )
         return []
+
 
 @login_manager.user_loader
 def load_user(user_id):

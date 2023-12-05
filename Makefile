@@ -34,8 +34,10 @@ run: ## Run
 restart: ## restart one/all containers
 	docker compose restart $(s)
 
-docker-initdb: ## Init and migrate database
+docker-init: ## Init and migrate database
 	docker compose exec web.yimba.io python runserver.py flask db init
+
+docker-initdb: ## Init and migrate database
 	docker compose exec web.yimba.io python runserver.py flask init_db
 
 docker-migrate: ## Init and migrate database

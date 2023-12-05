@@ -6,8 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    restart: unless-stopped
-    command: ["gunicorn", "--bind", ":5000", "--workers", "3", "-m", "007", "runserver:yimba_app"]
+    restart: always
+    command: gunicorn --workers 3 --bind 0.0.0.0:5000 -m 007 runserver:yimba_app
     volumes:
       - .:/web/app
     ports:
@@ -19,21 +19,17 @@ services:
 
   cache.redis.io:
     image: redis:alpine
-    restart: unless-stopped
+    restart: always
     command: redis-server --loglevel ${REDIS_LOG_LEVEL} --requirepass ${REDIS_PASSWORD}
     volumes:
       - redis_data:/data
+    env_file:
+      - dotenv/redis.env
     healthcheck:
       test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
       timeout: 30s
       retries: 3
-    env_file:
-      - dotenv/redis.env
 
 volumes:
   redis_data: {}
-
-networks:
-  default:
-    driver: bridge
