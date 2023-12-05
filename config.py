@@ -1,8 +1,6 @@
 import os
 
-from dotenv import dotenv_values
-
-env = dotenv_values(".flaskenv")
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
@@ -12,15 +10,19 @@ class Config:
 
     SITE_NAME = "Yimba"
 
-    SECRET_KEY = env.get("SECRET_KEY", os.urandom(24))
+    SECRET_KEY = os.environ.get("SECRET_KEY", os.urandom(24))
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SQLALCHEMY_RECORD_QUERIES = True
+    SQLALCHEMY_ECHO = False
 
-    SQLALCHEMY_DATABASE_URI = env.get("DATABASE_URL")
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or "sqlite:///" + os.path.join(
+        BASE_DIR, "dev.sqlite3"
+    )
 
     RESTX_VALIDATE = True
 
-    API_BASE_URL: str = env.get("API_BASE_URL")
-    API_ACCESS_TOKEN: str = env.get("API_ACCESS_TOKEN")
+    API_BASE_URL = os.environ.get("API_BASE_URL")
+    API_ACCESS_TOKEN = os.environ.get("API_ACCESS_TOKEN")
 
     @staticmethod
     def init_app(yimba_app):
@@ -30,6 +32,8 @@ class Config:
 class DevConfig(Config):
     DEBUG = True
     DEVELOPMENT = True
+    TEMPLATES_AUTO_RELOAD = True
+    DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 
 class TestConfig(Config):

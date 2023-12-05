@@ -1,12 +1,11 @@
-FROM python:3.10
+FROM python:alpine3.18
 
-RUN echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
+RUN apk --no-cache add postgresql-client
 
-RUN apt-get update && apt-get install -y sysfsutils
+WORKDIR /web/app
 
-WORKDIR /yimba
-
-COPY ./env/base.txt /yimba/env/
+COPY . /web/app
+RUN chmod +x /web/app/entrypoint.sh
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
@@ -18,13 +17,10 @@ ENV PYTHONUNBUFFERED=1 \
 
 RUN python -m venv $VIRTUAL_ENV && \
     pip install --upgrade pip && \
-    pip install --no-cache-dir -r /yimba/env/base.txt
+    pip install --no-cache-dir -r /web/app/env/base.txt
 
-EXPOSE 5000
+RUN chgrp -R 0 /web/app && \
+    chmod -R g+rwX /web/app
 
-COPY . /yimba
-
-COPY ./entrypoint.sh /yimba
-RUN chmod +x /yimba/entrypoint.sh
-
-ENTRYPOINT ["/yimba/entrypoint.sh"]
+ENTRYPOINT ["/web/app/entrypoint.sh"]
+CMD ["python3", "runserver.py"]

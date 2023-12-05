@@ -135,7 +135,6 @@ core.db
 Pipfile.lock
 .vscode/
 .flaskenv
-Pipfile.lock
 migrations
 *.sqlite3
 env/prod.txt

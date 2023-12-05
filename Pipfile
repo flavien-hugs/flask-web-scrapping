@@ -17,6 +17,7 @@ email-validator = "*"
 flask-moment = "*"
 flask-caching = "*"
 flask-migrate = "*"
+gunicorn = "*"
 
 [dev-packages]
 pre-commit = "*"

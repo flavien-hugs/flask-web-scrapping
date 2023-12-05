@@ -1,3 +1,4 @@
+import os
 import logging as lg
 
 from dotenv import dotenv_values
@@ -34,6 +35,5 @@ def init_db():
 
 
 if __name__ == "__main__":
-    APP_HOST = env.get("APP_HOST")
-    APP_PORT = env.get("APP_PORT")
-    yimba_app.run(threaded=True, host=APP_HOST, port=APP_PORT)
+    APP_HOST = os.environ.get("APP_HOST")
+    yimba_app.run(host=APP_HOST)

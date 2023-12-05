@@ -1,7 +1,7 @@
 MANAGE := FLASK_APP=runserver.py
 
-ifneq (,$(wildcard ./.flaskenv))
-    include ./.flaskenv
+ifneq (,$(wildcard ./dotenv/*.env))
+    include ./dotenv/*.env
     export
 endif
 
@@ -31,7 +31,7 @@ run: ## Run
 	docker compose up -d --build
 
 .PHONY: restart
-restart:	## restart one/all containers
+restart: ## restart one/all containers
 	docker compose restart $(s)
 
 docker-initdb: ## Init and migrate database
@@ -52,9 +52,10 @@ logs: ## View logs from one/all containers
 down: ## Stop the services, remove containers and networks
 	docker compose down -v
 
-.PHONY: destroy-all
-destroy-all: ## destroy one/all images
-	docker rmi -f $(docker images -a -q)
+.PHONY: prune
+prune: ## destroy one/all images
+	docker system prune
+	docker volume prune
 
 .PHONY: test
 test: ## Run the test

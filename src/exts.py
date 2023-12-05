@@ -24,7 +24,7 @@ login_manager = LoginManager()
 db = SQLAlchemy(metadata=metadata)
 cache = Cache(config={"CACHE_TYPE": "SimpleCache", "CACHE_DEFAULT_TIMEOUT": 300})
 
-# login_manager.login_view = "auth_bp.login"
+login_manager.login_view = "auth_bp.login"
 login_manager.session_protection = "strong"
 login_manager.login_message_category = "dander"
 login_manager.needs_refresh_message_category = "dander"
