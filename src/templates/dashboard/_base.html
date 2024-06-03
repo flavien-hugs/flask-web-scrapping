@@ -28,16 +28,16 @@
 						{% include "partials/message.html" %}
 
 						<div class="row">
-							{% include "dashboard/paths/_kpi.html" %}
+							
 						</div>
 						<div class="row">
 							<div class="col-md-8">
-								{%- for item in items %}
-								    {% include "dashboard/paths/_data.html" %}
+								{%- for item in hashtags %}
+								    {{ item }}
 								{%- endfor %}
 							</div>
 							<div class="col-md-4">
-								{% include "dashboard/paths/_leftbar.html" %}
+								
 							</div>
 						</div>
 					{% endblock body_content_dashboard %}

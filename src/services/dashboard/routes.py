@@ -11,9 +11,7 @@ from src.services.account import Project
 from src.services.account import utils
 from src.services.account.forms import ProjectForm
 
-from .func_utils import CombinedData
-from .func_utils import Facebook
-from .func_utils import Instagram
+from .func_utils import Hashtags, Comments
 
 
 dashboard_bp = Blueprint("dashboard_bp", __name__, url_prefix="/panel/~/")
@@ -21,12 +19,11 @@ dashboard_bp = Blueprint("dashboard_bp", __name__, url_prefix="/panel/~/")
 
 @dashboard_bp.before_request
 def dashboard_before_request():
-    g.data = CombinedData(current_user)
-    g.items_data = g.data.get_combined_data()
-    g.stats_data = g.data.get_statistics()
+    g.hashtag = Hashtags(current_user)
+    g.hashtags_data = g.hashtag.get_hashtag_data()
 
-    g.stat_fb = g.data.get_stat_facebook()
-    g.stat_insta = g.data.get_stat_instagram()
+    g.comment = Comments(current_user)
+    g.comments_data = g.comment.get_comments_data()
 
 
 @dashboard_bp.get("/dashboard/")
@@ -34,14 +31,14 @@ def dashboard_before_request():
 def dashboard():
     page_title = "Tableau de bord"
 
+    print("hashtags -->", g.hashtags_data)
+    print("comments -->", g.comments_data)
+
     return render_template(
         "dashboard/_base.html",
-        page_title=page_title,
         user=current_user,
-        items=g.items_data,
-        stat=g.stats_data,
-        stat_fb=g.stat_fb,
-        stat_insta=g.stat_insta,
+        hashtags=g.hashtags_data,
+        page_title=page_title,
     )
 
 
@@ -50,16 +47,16 @@ def dashboard():
 def get_projects():
     page_title = "projets"
 
-    stats_data = ""
-    data = Facebook(current_user)
-    for item in Project.all(current_user):
-        stats_data = data.get_statistic(item.name)
+    # stats_data = ""
+    # data = Hashtags(current_user)
+    # for item in Project.all(current_user):
+    #     stats_data = data.get_statistic(item.name)
 
     return render_template(
         "project/list.html",
         user=current_user,
         page_title=page_title.capitalize(),
-        stat=stats_data,
+        # stat=stats_data,
     )
 
 
@@ -68,20 +65,20 @@ def get_projects():
 def detail_project(public_id: str):
     project = utils.abort_if_project_doesnt_exist(public_id)
 
-    page_title = project.name
-    page_title = "Tag '{0}' data".format(project.name)
+    page_name = project.name
+    page_title = "Tag '{0}' data".format(page_name)
 
-    items_data = g.data.get_detail(project.name)
+    # items_data = g.data.get_detail(page_name)
 
     return render_template(
         "project/detail.html",
         project=project,
         user=current_user,
         page_title=page_title,
-        item=items_data,
-        stat=g.stats_data,
-        stat_fb=g.stat_fb,
-        stat_insta=g.stat_insta,
+        # item=items_data,
+        # stat=g.stats_data,
+        # stat_fb=g.stat_fb,
+        # stat_insta=g.stat_insta,
     )
 
 
@@ -92,17 +89,17 @@ def facebook_detail_project(public_id: str):
 
     page_title = f"Facebook data : '{project.name}!r'"
 
-    data = Facebook(current_user)
-    items_data = data.get_detail(project.name)
-    stats_data = data.get_statistic(project.name)
+    # data = Hashtags(current_user)
+    # items_data = data.get_detail(project.name)
+    # stats_data = data.get_statistic(project.name)
 
     return render_template(
         "project/fb.html",
         project=project,
         user=current_user,
         page_title=page_title,
-        item=items_data,
-        stat=stats_data,
+        # item=items_data,
+        # stat=stats_data,
     )
 
 
@@ -113,17 +110,15 @@ def instagram_detail_project(public_id: str):
 
     page_title = "Instagram data : '{0}'".format(project.name)
 
-    data = Instagram(current_user)
-    items_data = data.get_detail(project.name)
-    stats_data = data.get_statistic(project.name)
+    data = Hashtags(current_user)
+    # items_data = data.hashtags_data(project.name)
 
     return render_template(
         "project/fb.html",
         project=project,
         user=current_user,
         page_title=page_title,
-        item=items_data,
-        stat=stats_data,
+        # item=items_data,
     )
 
 
